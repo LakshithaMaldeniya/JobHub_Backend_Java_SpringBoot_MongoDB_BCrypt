@@ -8,5 +8,4 @@ import java.util.List;
 public interface SearchRepository {
     List<Post> findByText(String text);
 
-    User findByEmail(String text);
 }

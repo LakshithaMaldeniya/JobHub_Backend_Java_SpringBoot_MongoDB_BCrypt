@@ -21,14 +21,18 @@ public class UserController {
     @PostMapping("/saveuser")
     public String saveUser(@RequestBody User user) {
         user.setPassword(passwordManager.encrypt(user.getPassword()));
+        boolean status=true;
         List<User> allUsers = userRepository.findAll();
         for (User test:allUsers
              ) {
             if (test.getEmail().trim().equalsIgnoreCase(user.getEmail().trim())){
+                status=false;
                 return "User Allready exsist";
-            }else {
-                User savedUser = userRepository.save(user);
             }
+        }
+
+        if (status){
+            userRepository.save(user);
         }
         return "User Saved";
     }
